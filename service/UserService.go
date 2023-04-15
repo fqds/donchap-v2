@@ -15,7 +15,7 @@ func CreateUser(user *dto.UserDto) (string, error) {
 	}
 
 	userToCreate := &entity.User{
-		Login:             user.Login,
+		Name:             user.Name,
 		EncryptedPassword: encryptedPassword,
 	}
 	id, err := repository.NewUserRep(databaseConfig.ConnectToDb()).CreateUser(userToCreate)
@@ -23,4 +23,8 @@ func CreateUser(user *dto.UserDto) (string, error) {
 		return "", exception.NotCreatedObject{}
 	}
 	return id, nil
+}
+
+func CreateSession(user *dto.UserDto) (string, error) {
+	
 }

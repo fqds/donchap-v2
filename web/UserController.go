@@ -19,7 +19,7 @@ func CreateUser() fiber.Handler {
 		}
 
 		user := &dto.UserDto{
-			Login:    req.Login,
+			Name:    req.Name,
 			Password: req.Password,
 		}
 		id, err := service.CreateUser(user)
