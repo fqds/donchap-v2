@@ -26,5 +26,23 @@ func CreateUser(user *dto.UserDto) (string, error) {
 }
 
 func CreateSession(user *dto.UserDto) (string, error) {
+	encryptedPassword, err := user.GetEncryptedPassword()
+	if err != nil {
+		return "", err
+	}
+
+	userWithData := &entity.User{
+		Name:             user.Name,
+	}
+
+	err = repository.NewUserRep(databaseConfig.ConnectToDb()).GetUserByName(userWithData)
+	if err != nil {
+		return "", err
+	}
+
+	if encryptedPassword != userWithData.EncryptedPassword {
+		return "", exception.NotAuthenticated{}
+	}
 	
+	return userWithData.ID, nil
 }

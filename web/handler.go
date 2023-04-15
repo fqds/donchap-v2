@@ -6,4 +6,5 @@ import (
 
 func UserRouter(app fiber.Router) {
 	app.Post("/createUser", CreateUser())
+	app.Post("/createSession", CreateUser())
 }
