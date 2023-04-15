@@ -1,13 +1,13 @@
 package repository
 
 import (
-	"java-to-go/dto"
+	"java-to-go/entity"
 
 	"github.com/jmoiron/sqlx"
 )
 
 type UserRepository interface {
-	CreateUser(user *dto.UserDto) (string, error)
+	CreateUser(user *entity.User) (string, error)
 }
 
 type UserRep struct {

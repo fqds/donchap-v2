@@ -1,7 +1,7 @@
 package web
 
 import (
-	"java-to-go/entity"
+	"java-to-go/dto"
 	"java-to-go/service"
 	request2 "java-to-go/web/request"
 
@@ -18,7 +18,7 @@ func CreateUser() fiber.Handler {
 			return c.Status(400).JSON(err.Error())
 		}
 
-		user := &entity.User{
+		user := &dto.UserDto{
 			Login:    req.Login,
 			Password: req.Password,
 		}

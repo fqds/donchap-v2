@@ -8,13 +8,13 @@ import (
 	"java-to-go/repository"
 )
 
-func CreateUser(user *entity.User) (string, error) {
+func CreateUser(user *dto.UserDto) (string, error) {
 	encryptedPassword, err := user.GetEncryptedPassword()
 	if err != nil {
 		return "", err
 	}
 
-	userToCreate := &dto.UserDto{
+	userToCreate := &entity.User{
 		Login:             user.Login,
 		EncryptedPassword: encryptedPassword,
 	}
