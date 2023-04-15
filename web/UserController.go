@@ -4,7 +4,6 @@ import (
 	"java-to-go/entity"
 	"java-to-go/service"
 	request2 "java-to-go/web/request"
-	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -18,8 +17,6 @@ func CreateUser() fiber.Handler {
 		if err := c.BodyParser(&req); err != nil {
 			return c.Status(400).JSON(err.Error())
 		}
-
-		log.Println(req)
 
 		user := &entity.User{
 			Login:    req.Login,

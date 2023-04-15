@@ -9,7 +9,10 @@ import (
 )
 
 func CreateUser(user *entity.User) (string, error) {
-	encryptedPassword := user.Password
+	encryptedPassword, err := user.GetEncryptedPassword()
+	if err != nil {
+		return "", err
+	}
 
 	userToCreate := &dto.UserDto{
 		Login:             user.Login,
