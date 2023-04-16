@@ -22,11 +22,16 @@ func CreateUser() fiber.Handler {
 			Name:     req.Name,
 			Password: req.Password,
 		}
-		id, err := service.CreateUser(user)
+		
+		if err := service.CreateUser(user); err != nil {
+			return c.Status(401).JSON(err.Error())
+		}
+
+		signedToken, err := service.CreateSession(user)
 		if err != nil {
 			return c.Status(401).JSON(err.Error())
 		}
-		return c.Status(201).JSON(id)
+		return c.Status(201).JSON(signedToken)
 	}
 }
 
@@ -44,10 +49,10 @@ func CreateSession() fiber.Handler {
 			Name:     req.Name,
 			Password: req.Password,
 		}
-		id, err := service.CreateSession(user)
+		signedToken, err := service.CreateSession(user)
 		if err != nil {
 			return c.Status(401).JSON(err.Error())
 		}
-		return c.Status(201).JSON(id)
+		return c.Status(201).JSON(signedToken)
 	}
 }

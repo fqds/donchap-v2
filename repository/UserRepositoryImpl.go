@@ -10,10 +10,10 @@ type UserRepPostgres struct {
 	db *sqlx.DB
 }
 
-func (b UserRepPostgres) CreateUser(user *entity.User) (string, error) {
-	var id string
+func (b UserRepPostgres) CreateUser(user *entity.User) (int, error) {
+	var id int
 	if err := b.db.QueryRow("INSERT INTO users (name, encrypted_password) VALUES ($1, $2) RETURNING ID", user.Name, user.EncryptedPassword).Scan(&id); err != nil {
-		return "", err
+		return 0, err
 	}
 
 	return id, nil

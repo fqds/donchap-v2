@@ -18,21 +18,21 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func CreateUser(user *dto.UserDto) (string, error) {
+func CreateUser(user *dto.UserDto) error {
 	encryptedPassword, err := user.GetEncryptedPassword()
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	userToCreate := &entity.User{
 		Name:              user.Name,
 		EncryptedPassword: encryptedPassword,
 	}
-	id, err := repository.NewUserRep(databaseConfig.ConnectToDb()).CreateUser(userToCreate)
+	user.ID, err = repository.NewUserRep(databaseConfig.ConnectToDb()).CreateUser(userToCreate)
 	if err != nil {
-		return "", exception.NotCreatedObject{}
+		return exception.NotCreatedObject{}
 	}
-	return id, nil
+	return nil
 }
 
 func CreateSession(user *dto.UserDto) (string, error) {
