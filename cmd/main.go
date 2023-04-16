@@ -1,6 +1,7 @@
 package main
 
 import (
+	"java-to-go/config"
 	"java-to-go/web"
 	"log"
 
@@ -8,14 +9,10 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	_ "github.com/lib/pq"
-	"github.com/spf13/viper"
 )
 
-var Config = viper.New()
-
 func main() {
-	Config.SetConfigFile("config.yaml")
-	Config.ReadInConfig()
+	config.SetConfig()
 
 	app := fiber.New()
 	app.Use(logger.New())
@@ -28,5 +25,5 @@ func main() {
 
 	api := app.Group("/api")
 	web.UserRouter(api)
-	log.Fatal(app.Listen(Config.GetString("port")))
+	log.Fatal(app.Listen(config.Config.GetString("port")))
 }

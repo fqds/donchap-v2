@@ -1,4 +1,5 @@
 port: ":8080"
+auth-secret: "mwyzkpemjwmprwcelfgxsgxaesihnymdypeovdwrtdgdtteibybzqiljzaawsjrgtzyoresfmowvrkkpepznltxhayyuxqzxcaelrvwheijssbslqcglejoyqunikpjj"
 db:
   username: "tester"
   host : "localhost"

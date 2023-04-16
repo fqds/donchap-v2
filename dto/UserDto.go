@@ -1,18 +1,30 @@
 package dto
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"java-to-go/exception"
+	"log"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type UserDto struct {
-	ID       string `json:"-" db:"id"`
-	Name    string `json:"-" db:"name"`
+	ID       int    `json:"-" db:"id"`
+	Name     string `json:"-" db:"name"`
 	Password string `json:"-" db:"password"`
 }
 
 func (u *UserDto) GetEncryptedPassword() (string, error) {
-	b, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.MinCost)
+	log.Println(u.Password)
+	if len(u.Password) == 0 {
+		return "", exception.ShortPassword{}
+	}
+	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.MinCost)
 	if err != nil {
 		return "", nil
 	}
 
-	return string(b), nil
+	return string(encryptedPassword), nil
+}
+func (u *UserDto) ComparePassword(encryptedPassword string) bool {
+	return bcrypt.CompareHashAndPassword([]byte(encryptedPassword), []byte(u.Password)) == nil
 }

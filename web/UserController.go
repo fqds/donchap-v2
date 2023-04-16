@@ -19,12 +19,12 @@ func CreateUser() fiber.Handler {
 		}
 
 		user := &dto.UserDto{
-			Name:    req.Name,
+			Name:     req.Name,
 			Password: req.Password,
 		}
 		id, err := service.CreateUser(user)
 		if err != nil {
-			return c.Status(422).JSON(err.Error())
+			return c.Status(401).JSON(err.Error())
 		}
 		return c.Status(201).JSON(id)
 	}
@@ -41,12 +41,12 @@ func CreateSession() fiber.Handler {
 		}
 
 		user := &dto.UserDto{
-			Name:    req.Name,
+			Name:     req.Name,
 			Password: req.Password,
 		}
 		id, err := service.CreateSession(user)
 		if err != nil {
-			return c.Status(422).JSON(err.Error())
+			return c.Status(401).JSON(err.Error())
 		}
 		return c.Status(201).JSON(id)
 	}

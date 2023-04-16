@@ -4,5 +4,5 @@ type NotAuthenticated struct {
 }
 
 func (err NotAuthenticated) Error() string {
-	return "NotAuthenticated"
+	return "Not authenticated"
 }

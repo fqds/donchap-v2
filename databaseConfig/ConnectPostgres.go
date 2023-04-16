@@ -2,6 +2,7 @@ package databaseConfig
 
 import (
 	"fmt"
+	"java-to-go/config"
 	"log"
 
 	"github.com/jmoiron/sqlx"
@@ -11,15 +12,13 @@ import (
 var Config = viper.New()
 
 func ConnectToDb() *sqlx.DB {
-	Config.SetConfigFile("config.yaml")
-	Config.ReadInConfig()
 	db, err := ConnectDB(
-		Config.GetString("db.host"),
-		Config.GetString("db.port"),
-		Config.GetString("db.dbname"),
-		Config.GetString("db.username"),
-		Config.GetString("db.password"),
-		Config.GetString("db.sslmode"),
+		config.Config.GetString("db.host"),
+		config.Config.GetString("db.port"),
+		config.Config.GetString("db.dbname"),
+		config.Config.GetString("db.username"),
+		config.Config.GetString("db.password"),
+		config.Config.GetString("db.sslmode"),
 	)
 	if err != nil {
 		log.Fatal("Database Connection Error $s", err)
