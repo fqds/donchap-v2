@@ -27,6 +27,15 @@ func (b UserRepPostgres) GetUserByName(user *entity.User) error {
 	return nil
 }
 
+
+func (b UserRepPostgres) GetUserByID(user *entity.User) error {
+	if err := b.db.QueryRow("SELECT name FROM users WHERE id = $1", user.ID).Scan(&user.Name); err != nil {
+		return err
+	}
+	
+	return nil
+}
+
 func NewUserRepPostgres(db *sqlx.DB) *UserRepPostgres {
 	return &UserRepPostgres{db: db}
 }

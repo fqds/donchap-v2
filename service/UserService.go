@@ -65,3 +65,26 @@ func CreateSession(user *dto.UserDto) (string, error) {
 
 	return signedToken, nil
 }
+
+func ApproveSession(authToken string) (*entity.User, error) {
+
+	claims := &Claims{}
+	_, err := jwt.ParseWithClaims(authToken, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(config.Config.GetString("auth-secret")), nil
+	})
+	if err != nil {
+		if err == jwt.ErrSignatureInvalid {
+			return nil, err
+		}
+		return nil, exception.NotAuthenticated{}
+	}
+	user := &entity.User{
+		ID: claims.UserID,
+	}
+	
+	if err := repository.NewUserRep(databaseConfig.ConnectToDb()).GetUserByID(user); err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}

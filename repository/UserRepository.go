@@ -9,6 +9,7 @@ import (
 type UserRepository interface {
 	CreateUser(user *entity.User) (int, error)
 	GetUserByName(user *entity.User) error
+	GetUserByID(user *entity.User) error
 }
 
 type UserRep struct {
