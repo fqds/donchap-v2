@@ -4,6 +4,7 @@ import (
 	"java-to-go/dto"
 	"java-to-go/service"
 	request2 "java-to-go/web/request"
+	response2 "java-to-go/web/response"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -30,10 +31,11 @@ func CreateUser() fiber.Handler {
 		}
 
 		signedToken, err := service.CreateSession(user)
+		response := &response2.AuthTokenResponse{AuthToken: signedToken}
 		if err != nil {
 			return c.Status(401).JSON(err.Error())
 		}
-		return c.Status(201).JSON(signedToken)
+		return c.Status(201).JSON(response)
 	}
 }
 
@@ -53,17 +55,18 @@ func CreateSession() fiber.Handler {
 			Password: req.Password,
 		}
 		signedToken, err := service.CreateSession(user)
+		response := &response2.AuthTokenResponse{AuthToken: signedToken}
 		if err != nil {
 			return c.Status(401).JSON(err.Error())
 		}
-		return c.Status(201).JSON(signedToken)
+		return c.Status(200).JSON(response)
 	}
 }
 
 func ApproveSession() fiber.Handler {
 	return func(c * fiber.Ctx) error {
 		type request struct {
-			AuthToken string `json:"authToken"`
+			request2.AuthTokenRequest
 		}
 		req := request{}
 		if err := c.BodyParser(&req); err != nil {

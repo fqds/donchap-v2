@@ -2,7 +2,6 @@ package dto
 
 import (
 	"java-to-go/exception"
-	"log"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -14,7 +13,6 @@ type UserDto struct {
 }
 
 func (u *UserDto) GetEncryptedPassword() (string, error) {
-	log.Println(u.Password)
 	if len(u.Password) == 0 {
 		return "", exception.ShortPassword{}
 	}
