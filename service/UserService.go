@@ -1,12 +1,12 @@
 package service
 
 import (
-	"java-to-go/config"
-	"java-to-go/databaseConfig"
-	"java-to-go/dto"
-	"java-to-go/entity"
-	"java-to-go/exception"
-	"java-to-go/repository"
+	"donchap-v2/config"
+	"donchap-v2/databaseConfig"
+	"donchap-v2/dto"
+	"donchap-v2/entity"
+	"donchap-v2/exception"
+	"donchap-v2/repository"
 	"log"
 	"time"
 

@@ -1,4 +1,4 @@
-module java-to-go
+module donchap-v2
 
 go 1.19
 

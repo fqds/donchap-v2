@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"java-to-go/entity"
+	"donchap-v2/entity"
 
 	"github.com/jmoiron/sqlx"
 )

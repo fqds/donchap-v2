@@ -2,7 +2,7 @@ package databaseConfig
 
 import (
 	"fmt"
-	"java-to-go/config"
+	"donchap-v2/config"
 	"log"
 
 	"github.com/jmoiron/sqlx"

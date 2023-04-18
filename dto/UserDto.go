@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"java-to-go/exception"
+	"donchap-v2/exception"
 
 	"golang.org/x/crypto/bcrypt"
 )

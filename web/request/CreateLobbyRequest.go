@@ -1,6 +1,6 @@
 package request
 
-import "java-to-go/dto"
+import "donchap-v2/dto"
 
 type CreateLobbyRequest struct {
 	Name            string `json:"name"`

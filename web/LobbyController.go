@@ -1,9 +1,9 @@
 package web
 
 import (
-	// "java-to-go/dto"
-	// "java-to-go/service"
-	request2 "java-to-go/web/request"
+	// "donchap-v2/dto"
+	// "donchap-v2/service"
+	request2 "donchap-v2/web/request"
 	"log"
 
 	"github.com/gofiber/fiber/v2"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"java-to-go/config"
-	"java-to-go/web"
+	"donchap-v2/config"
+	"donchap-v2/web"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
