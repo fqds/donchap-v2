@@ -25,8 +25,7 @@ func CreateLobby() fiber.Handler {
 			MasterID:        9,
 			LobbyParameters: req.LobbyParameters,
 		}
-		err := service.CreateLobby(lobby)
-		if err != nil {
+		if err := service.CreateLobby(lobby); err != nil {
 			return c.Status(422).JSON(err.Error())
 		}
 		return c.Status(201).JSON("lobby created")

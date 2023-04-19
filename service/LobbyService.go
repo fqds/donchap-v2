@@ -13,9 +13,23 @@ func CreateLobby(lobby *dto.LobbyDto) error {
 		Name:     lobby.Name,
 		MasterID: lobby.MasterID,
 	}
-	
+
 	if err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).CreateLobby(lobbyToCreate); err != nil {
 		return exception.NotCreatedObject{}
 	}
+
+	for _, value := range lobby.LobbyParameters {
+		lobbyParameterToCreate := &entity.LobbyParameter{
+			LobbyID:      lobby.ID,
+			Name:         value.Name,
+			Formula:      value.Formula,
+			DropdownList: value.DropdownList,
+			IsVisible:    value.IsVisible,
+		}
+		if err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).CreateLobbyParameter(lobbyParameterToCreate); err != nil {
+			return exception.NotCreatedObject{}
+		}
+	}
+
 	return nil
 }

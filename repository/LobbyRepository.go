@@ -8,6 +8,7 @@ import (
 
 type LobbyRepository interface {
 	CreateLobby(lobby *entity.Lobby) error
+	CreateLobbyParameter(lobby *entity.LobbyParameter) error
 }
 
 type LobbyRep struct {
