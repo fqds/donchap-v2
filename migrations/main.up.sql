@@ -4,10 +4,10 @@ CREATE TABLE users (
     encrypted_password varchar not null
 );
 
-CREATE TABLE transactions (
+CREATE TABLE lobbies (
     id bigserial not null primary key,
     name varchar not null unique,
-    master bigserial not null
+    master_id bigserial not null
 );
 
 CREATE TABLE lobby_parameters (

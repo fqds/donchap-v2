@@ -1,6 +1,6 @@
 package dto
 
-type LobbyParameter struct {
+type LobbyParameterDto struct {
 	ID           int    `json:"-" db:"id"`
 	LobbyID      string `json:"-" db:"lobby_id"`
 	Name         string `json:"name" db:"name"`

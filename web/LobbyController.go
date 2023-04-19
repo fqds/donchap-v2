@@ -1,8 +1,8 @@
 package web
 
 import (
-	// "donchap-v2/dto"
-	// "donchap-v2/service"
+	"donchap-v2/dto"
+	"donchap-v2/service"
 	request2 "donchap-v2/web/request"
 	"log"
 
@@ -20,14 +20,15 @@ func CreateLobby() fiber.Handler {
 		}
 		log.Println(req)
 
-		// user := &dto.UserDto{
-		// 	Name:     req.Name,
-		// 	Password: req.Password,
-		// }
-		// signedToken, err := service.CreateSession(user)
-		// if err != nil {
-		// 	return c.Status(401).JSON(err.Error())
-		// }
-		return c.Status(201).JSON("")
+		lobby := &dto.LobbyDto{
+			Name:            req.Name,
+			MasterID:        9,
+			LobbyParameters: req.LobbyParameters,
+		}
+		err := service.CreateLobby(lobby)
+		if err != nil {
+			return c.Status(422).JSON(err.Error())
+		}
+		return c.Status(201).JSON("lobby created")
 	}
 }
