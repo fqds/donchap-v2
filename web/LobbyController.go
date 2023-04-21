@@ -2,6 +2,7 @@ package web
 
 import (
 	"donchap-v2/dto"
+	"donchap-v2/entity"
 	"donchap-v2/service"
 	request2 "donchap-v2/web/request"
 	"log"
@@ -22,7 +23,7 @@ func CreateLobby() fiber.Handler {
 
 		lobby := &dto.LobbyDto{
 			Name:            req.Name,
-			MasterID:        9,
+			MasterID:        c.Locals("user").(*entity.User).ID,
 			LobbyParameters: req.LobbyParameters,
 		}
 		if err := service.CreateLobby(lobby); err != nil {
