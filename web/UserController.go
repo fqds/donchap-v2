@@ -76,9 +76,9 @@ func ApproveSession() fiber.Handler {
 		
 		user, err := service.ApproveSession(req.AuthToken)
 		if err != nil {
-			return c.Status(401).JSON(err.Error())
+			return c.Status(422).JSON(err.Error())
 		}
-
-		return c.Status(201).JSON(user.Name)
+		c.Locals("user", user)
+		return c.Status(200).Next()
 	}
 }
