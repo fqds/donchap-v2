@@ -33,3 +33,12 @@ func CreateLobby(lobby *dto.LobbyDto) error {
 
 	return nil
 }
+
+func ConnectToLobby(lobbyName string, userID int) error {
+	// lobby, err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyByName(lobbyToCreate);
+	// if err != nil {
+	// 	return exception.NotCreatedObject{}
+	// }
+
+	return nil
+}

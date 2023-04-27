@@ -32,3 +32,21 @@ func CreateLobby() fiber.Handler {
 		return c.Status(201).JSON("lobby created")
 	}
 }
+
+func ConnectToLobby() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		type request struct {
+			request2.ConnectToLobbyRequest
+		}
+		req := request{}
+		if err := c.BodyParser(&req); err != nil {
+			return c.Status(400).JSON(err.Error())
+		}
+		log.Println(req)
+
+		if err := service.ConnectToLobby(req.LobbyName, c.Locals("user").(*entity.User).ID); err != nil {
+			return c.Status(422).JSON(err.Error())
+		}
+		return c.Status(201).JSON("lobby created")
+	}
+}
