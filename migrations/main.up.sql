@@ -19,9 +19,16 @@ CREATE TABLE lobby_parameters (
     is_visible boolean
 );
 
+CREATE TABLE lobby_players (
+    id bigserial not null primary key,
+    user_id bigserial not null,
+    lobby_id bigserial not null,
+    is_visible boolean
+)
+
 CREATE TABLE player_parameters (
     id bigserial not null primary key,
     player_id bigserial not null,
     parameter_id bigserial not null,
-    value varchar,
+    value varchar
 );
