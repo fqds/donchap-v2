@@ -44,9 +44,10 @@ func ConnectToLobby() fiber.Handler {
 		}
 		log.Println(req)
 
-		if err := service.ConnectToLobby(req.LobbyName, c.Locals("user").(*entity.User).ID); err != nil {
+		lobbyDto, err := service.ConnectToLobby(req.LobbyName, c.Locals("user").(*entity.User).ID)
+		if err != nil {
 			return c.Status(422).JSON(err.Error())
 		}
-		return c.Status(201).JSON("lobby connection data")
+		return c.Status(201).JSON(lobbyDto)
 	}
 }

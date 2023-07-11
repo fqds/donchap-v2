@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"donchap-v2/dto"
 	"donchap-v2/entity"
 
 	"github.com/jmoiron/sqlx"
@@ -29,6 +30,22 @@ func (b LobbyRepPostgres) CreateLobbyParameter(lobbyParameter *entity.LobbyParam
 func (b LobbyRepPostgres) GetLobbyByName(lobbyName string) (lobby entity.Lobby, err error) {
 	lobby.Name = lobbyName
 	err = b.db.QueryRow("SELECT id, master_id FROM lobbies WHERE name = $1", lobby.Name).Scan(&lobby.ID, &lobby.MasterID)
+	return
+}
+
+func (b LobbyRepPostgres) GetLobbyParameters(lobbyID int) (lobbyDto dto.LobbyDto, err error) {
+	lobbyDto.ID = lobbyID
+	rows, err := b.db.Query("SELECT name, formula, dropdown_list, is_visible FROM lobby_parameters WHERE lobby_id = $1", lobbyDto.ID)
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		var parameterDto dto.LobbyParameterDto
+		if err = rows.Scan(&parameterDto.Name, &parameterDto.Formula, &parameterDto.DropdownList, &parameterDto.IsVisible); err != nil {
+			return
+		}
+		lobbyDto.LobbyParameters = append(lobbyDto.LobbyParameters, parameterDto)
+	}
 	return
 }
 

@@ -6,7 +6,6 @@ import (
 	"donchap-v2/entity"
 	"donchap-v2/exception"
 	"donchap-v2/repository"
-	"log"
 )
 
 func CreateLobby(lobby *dto.LobbyDto) error {
@@ -35,13 +34,16 @@ func CreateLobby(lobby *dto.LobbyDto) error {
 	return nil
 }
 
-func ConnectToLobby(lobbyName string, userID int) error {
+func ConnectToLobby(lobbyName string, userID int) (lobbyDto dto.LobbyDto, err error) {
 	lobby, err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyByName(lobbyName)
 	if err != nil {
-		return exception.NotCreatedObject{}
+		err = exception.NotCreatedObject{}
+		return
 	}
 
-	log.Println(lobby)
-
-	return nil
+	if lobby.MasterID == userID {
+		lobbyDto, err = repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyParameters(lobby.ID)
+		return
+	}
+	return
 }
