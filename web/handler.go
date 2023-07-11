@@ -12,6 +12,7 @@ func UserRouter(app fiber.Router) {
 	private := fiber.New()
 	private.Use(ApproveSession())
 	private.Post("/createLobby", CreateLobby())
+	private.Post("/connectToLobby", ConnectToLobby())
 
 	app.Mount("/private", private)
 }

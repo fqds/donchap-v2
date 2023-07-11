@@ -47,6 +47,6 @@ func ConnectToLobby() fiber.Handler {
 		if err := service.ConnectToLobby(req.LobbyName, c.Locals("user").(*entity.User).ID); err != nil {
 			return c.Status(422).JSON(err.Error())
 		}
-		return c.Status(201).JSON("lobby created")
+		return c.Status(201).JSON("lobby connection data")
 	}
 }

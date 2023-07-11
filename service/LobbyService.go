@@ -20,7 +20,7 @@ func CreateLobby(lobby *dto.LobbyDto) error {
 
 	for _, value := range lobby.LobbyParameters {
 		lobbyParameterToCreate := &entity.LobbyParameter{
-			LobbyID:      lobby.ID,
+			LobbyID:      lobbyToCreate.ID,
 			Name:         value.Name,
 			Formula:      value.Formula,
 			DropdownList: value.DropdownList,
