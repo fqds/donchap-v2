@@ -18,3 +18,10 @@ CREATE TABLE lobby_parameters (
     dropdown_list varchar,
     is_visible boolean
 );
+
+CREATE TABLE player_parameters (
+    id bigserial not null primary key,
+    player_id bigserial not null,
+    parameter_id bigserial not null,
+    value varchar,
+);
