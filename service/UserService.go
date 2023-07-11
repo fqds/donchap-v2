@@ -49,7 +49,7 @@ func CreateSession(user *dto.UserDto) (string, error) {
 		return "", exception.NotAuthenticated{}
 	}
 
-	expirationTime := time.Now().Add(time.Second * 900)
+	expirationTime := time.Now().Add(time.Second * 2592000) // 1 month
 	claims := &Claims{
 		UserID: userWithData.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
