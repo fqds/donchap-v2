@@ -26,6 +26,12 @@ func (b LobbyRepPostgres) CreateLobbyParameter(lobbyParameter *entity.LobbyParam
 	return nil
 }
 
+func (b LobbyRepPostgres) GetLobbyByName(lobbyName string) (lobby entity.Lobby, err error) {
+	lobby.Name = lobbyName
+	err = b.db.QueryRow("SELECT id, master_id FROM lobbies WHERE name = $1", lobby.Name).Scan(&lobby.ID, &lobby.MasterID)
+	return
+}
+
 func NewLobbyRepPostgres(db *sqlx.DB) *LobbyRepPostgres {
 	return &LobbyRepPostgres{db: db}
 }

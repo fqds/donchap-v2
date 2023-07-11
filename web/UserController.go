@@ -72,12 +72,12 @@ func ApproveSession() fiber.Handler {
 		if err := c.BodyParser(&req); err != nil {
 			return c.Status(400).JSON(err.Error())
 		}
-		log.Println(req)
 		
 		user, err := service.ApproveSession(req.AuthToken)
 		if err != nil {
 			return c.Status(422).JSON(err.Error())
 		}
+		log.Println("User:", user.ID, user.Name)
 		c.Locals("user", user)
 		return c.Status(200).Next()
 	}

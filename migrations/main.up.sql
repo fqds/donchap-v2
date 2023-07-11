@@ -24,7 +24,7 @@ CREATE TABLE lobby_players (
     user_id bigserial not null,
     lobby_id bigserial not null,
     is_visible boolean
-)
+);
 
 CREATE TABLE player_parameters (
     id bigserial not null primary key,
