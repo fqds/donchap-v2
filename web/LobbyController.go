@@ -36,7 +36,7 @@ func CreateLobby() fiber.Handler {
 func ConnectToLobby() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		type request struct {
-			request2.ConnectToLobbyRequest
+			request2.LobbyNameRequest
 		}
 		req := request{}
 		if err := c.BodyParser(&req); err != nil {
@@ -49,5 +49,24 @@ func ConnectToLobby() fiber.Handler {
 			return c.Status(422).JSON(err.Error())
 		}
 		return c.Status(201).JSON(lobbyDto)
+	}
+}
+
+func IsLobbyMaster() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		type request struct {
+			request2.LobbyNameRequest
+		}
+		req := request{}
+		if err := c.BodyParser(&req); err != nil {
+			return c.Status(400).JSON(err.Error())
+		}
+		log.Println(req)
+
+		isMaster, err := service.IsLobbyMaster(req.LobbyName, c.Locals("user").(*entity.User).ID)
+		if err != nil {
+			return c.Status(422).JSON(err.Error())
+		}
+		return c.Status(201).JSON(isMaster)
 	}
 }

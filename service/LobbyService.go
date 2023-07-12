@@ -34,6 +34,19 @@ func CreateLobby(lobby *dto.LobbyDto) error {
 	return nil
 }
 
+func IsLobbyMaster(lobbyName string, userID int) (bool, error) {
+	lobby, err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyByName(lobbyName)
+	if err != nil {
+		err = exception.NotCreatedObject{}
+		return false, err
+	}
+
+	if lobby.MasterID == userID {
+		return true, nil
+	}
+	return false, nil
+}
+
 func ConnectToLobby(lobbyName string, userID int) (lobbyDto dto.LobbyDto, err error) {
 	lobby, err := repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyByName(lobbyName)
 	if err != nil {
@@ -45,5 +58,7 @@ func ConnectToLobby(lobbyName string, userID int) (lobbyDto dto.LobbyDto, err er
 		lobbyDto, err = repository.NewLobbyRep(databaseConfig.ConnectToDb()).GetLobbyParameters(lobby.ID)
 		return
 	}
+	
+	// playerDto
 	return
 }

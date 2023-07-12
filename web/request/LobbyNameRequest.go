@@ -1,5 +1,5 @@
 package request
 
-type ConnectToLobbyRequest struct {
+type LobbyNameRequest struct {
 	LobbyName string `json:"lobby_name"`
 }
