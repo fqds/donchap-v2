@@ -11,10 +11,12 @@ func UserRouter(app fiber.Router) {
 
 	private := fiber.New()
 	private.Use(ApproveSession())
-	// todo: /lobby subrouter
-	private.Post("/createLobby", CreateLobby())
-	private.Post("/connectToLobby", ConnectToLobby())
-	private.Post("/isLobbyMaster", IsLobbyMaster())
-
 	app.Mount("/private", private)
+
+	lobby := fiber.New()
+	private.Mount("/lobby", lobby)
+	lobby.Post("/create", CreateLobby())
+	lobby.Post("/connectPlayer", ConnectToLobby())
+	lobby.Post("/isMaster", IsLobbyMaster())
+
 }
